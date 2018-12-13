@@ -50,22 +50,20 @@ kotlin {
     }
 }
 
+jvmTest {
+    ignoreFailures = true
+    maxHeapSize = "2g"
+    exclude("**/*StressTest*")
+}
 
+task stressTest(type: Test, dependsOn: jvmTestClasses) {
+    ignoreFailures = true
+    maxHeapSize = "2g"
+    forkEvery = 1
+    include("**/*StressTest*")
+    systemProperty "enable.stress.tests", "true"
+}
 
-//test {
-//    ignoreFailures = true
-//    maxHeapSize = "2g"
-//    exclude("**/*StressTest*")
-//}
-//
-//task stressTest(type: Test, dependsOn: testClasses) {
-//    ignoreFailures = true
-//    maxHeapSize = "2g"
-//    forkEvery = 1
-//    include("**/*StressTest*")
-//    systemProperty "enable.stress.tests", "true"
-//}
-//
 
 //task packageSources(type: Jar) {
 //    classifier = 'sources'
